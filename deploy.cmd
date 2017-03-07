@@ -54,13 +54,15 @@ goto Deployment
 
 :SelectPythonVersion
 echo "Set python version"
+
+:: Adjust these
 SET PYTHON_RUNTIME=python-3.5
 SET PYTHON_VER=3.5
-SET PYTHON_EXE=%SYSTEMDRIVE%\home\Python35\python.exe
-SET PYTHON_ENV_MODULE=virtualenv
-SET PYTHON_EXE_VENV=%DEPLOYMENT_TARGET%\env\Scripts\python.exe
-echo "Set CNTK wheel"
 SET CNTK_WHEEL=cntk-2.0.beta11.0-cp35-cp35m-win_amd64.whl
+SET PYTHON_EXE=%SYSTEMDRIVE%\home\Python35\python.exe
+:: Adjust these
+
+SET PYTHON_EXE_VENV=%DEPLOYMENT_TARGET%\env\Scripts\python.exe
 
 goto :EOF
 
@@ -116,7 +118,6 @@ IF NOT EXIST "%DEPLOYMENT_TARGET%\env\azure.env.%PYTHON_RUNTIME%.txt" (
   
   %PYTHON_EXE% --version
   echo Creating %PYTHON_RUNTIME% virtual environment.
-  %PYTHON_EXE% -m pip install %PYTHON_ENV_MODULE%
   %PYTHON_EXE% -m venv --without-pip env
   echo Installing pip 
   curl https://bootstrap.pypa.io/get-pip.py | %PYTHON_EXE_VENV%
