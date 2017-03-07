@@ -1,5 +1,8 @@
 # Installing CNTK w/ Demo Model on Azure Web Apps
 
+[Demo](http://cntkwebappik.azurewebsites.net)
+![Demo](readme_example.JPG)
+
 ## A - Prerequisites
 
 1. Create a folder that will contain the data for your web-app and download all of the contents of this repo into it:
@@ -31,7 +34,7 @@
 	-- templates
 	--- index.html
 	-- __init__.py
-	-- __model__.py
+	-- model.py
 	-- init.txt
 	-- numpy-1.12.0+mkl-cp35-cp35m-win_amd64.whl
 	-- Pillow-4.0.0-cp35-cp35m-win_amd64.whl
@@ -50,6 +53,8 @@
 	```
 	cd <YourWebAppFolderName>
 	azure login
+	azure account list
+	azure account set <Subscription ID to become default>
 	azure config mode asm
 	azure site create --git <yourWebAppSiteName>
 	```
