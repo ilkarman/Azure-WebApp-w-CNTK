@@ -1,6 +1,7 @@
 # Installing CNTK w/ Demo Model on Azure Web Apps
 
 [Demo](http://cntkwebappik.azurewebsites.net)
+
 ![Demo](readme_example.JPG)
 
 ## A - Prerequisites
