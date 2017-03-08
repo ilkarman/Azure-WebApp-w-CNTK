@@ -40,9 +40,9 @@ def upload_file():
 
     # Display re-sized picture
     png_output = base64.b64encode(ret_imgio.getvalue())
-    processed_file = urllib.pathname2url(png_output)
+    processed_file = urllib.parse.quote(png_output)
 
-    return render_template('layout.html', **locals())
+    return render_template('index.html', **locals())
 
 
 def run_some_deep_learning_cntk(rgb_pil_image):

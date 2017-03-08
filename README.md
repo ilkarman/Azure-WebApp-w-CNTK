@@ -30,16 +30,16 @@
 	- Model
 	-- ResNet_18.model
 	-- synset-1k.txt
-	- WebApp
 	- Wheels
+	-- init.txt
+	-- numpy-1.12.0+mkl-cp35-cp35m-win_amd64.whl
+	-- Pillow-4.0.0-cp35-cp35m-win_amd64.whl
+	-- scipy-0.19.0rc2-cp35-cp35m-win_amd64.whl	
+	- WebApp
 	-- templates
 	--- index.html
 	-- __init__.py
 	-- model.py
-	-- init.txt
-	-- numpy-1.12.0+mkl-cp35-cp35m-win_amd64.whl
-	-- Pillow-4.0.0-cp35-cp35m-win_amd64.whl
-	-- scipy-0.19.0rc2-cp35-cp35m-win_amd64.whl
 	- .deployment
 	- deploy.cmd
 	- README.md
