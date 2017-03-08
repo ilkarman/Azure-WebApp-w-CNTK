@@ -44,6 +44,12 @@ def upload_file():
 
     return render_template('index.html', **locals())
 
+@app.route("/api/uploader", methods=['POST'])
+def api_upload_file():
+    img = Image.open(BytesIO(request.files['imagefile'].read())).convert('RGB')
+    img = ImageOps.fit(img, (224, 224), Image.ANTIALIAS)
+    return json.dumps(run_some_deep_learning_cntk(img))
+
 
 def run_some_deep_learning_cntk(rgb_pil_image):
     # Convert to BGR

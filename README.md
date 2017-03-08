@@ -36,10 +36,11 @@
 	-- Pillow-4.0.0-cp35-cp35m-win_amd64.whl
 	-- scipy-0.19.0rc2-cp35-cp35m-win_amd64.whl	
 	- WebApp
-	-- templates
-	--- index.html
 	-- __init__.py
 	-- model.py
+	-- templates
+	--- index.html
+	- cntk.zip
 	- .deployment
 	- deploy.cmd
 	- README.md
