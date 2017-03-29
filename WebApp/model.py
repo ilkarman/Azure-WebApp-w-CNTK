@@ -1,15 +1,16 @@
 import os
-
-os.environ['PATH'] = r'D:\home\site\wwwroot\cntk\cntk;' + os.environ['PATH']
+os.environ['PATH'] = r'D:\home\site\wwwroot\cntk;' + os.environ['PATH']
 
 import base64
 import urllib
 import numpy as np
 from cntk import load_model, combine
-from flask import render_template, request, json
+from flask import Flask, render_template, request, json
 from io import BytesIO
 from PIL import Image, ImageOps
 from WebApp import app
+
+app = Flask(__name__)
 
 # Pre-load model
 MODEL = load_model("Model/ResNet_18.model")

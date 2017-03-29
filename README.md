@@ -6,6 +6,10 @@
 
 ![Demo](readme_example.JPG)
 
+** For this guide to work without modifications you must install the "Python 3.5.3 x64" extension **
+
+![Demo](requirement.JPG)
+
 ## A - Prerequisites
 
 1. Create a folder that will contain the data for your web-app and download all of the contents of this repo into it:
@@ -13,18 +17,9 @@
 	mkdir <YourWebAppFolderName>
 	```
 
-2. Go to https://github.com/Microsoft/CNTK/releases and download the latest version of the Windows CPU-only CNTK, which for me is "CNTK for Windows v.2.0 Beta 11 CPU only", rename this to "cntk.zip" and put this at the root of your directory
+2. Download the Python 3.5 (64bit) wheel for pillow [here](https://azurewebappcntk.blob.core.windows.net/wheels/Pillow-4.0.0-cp35-cp35m-win_amd64.whl) into the "Wheels" folder. If you require additional wheels, you can go to http://www.lfd.uci.edu/~gohlke/pythonlibs/ to download the wheel and then add it to "requirements.txt" file at the root of the directory. **Note: [Numpy](https://azurewebappcntk.blob.core.windows.net/wheels/numpy-1.12.1+mkl-cp35-cp35m-win_amd64.whl), [Scipy](https://azurewebappcntk.blob.core.windows.net/wheels/scipy-0.19.0-cp35-cp35m-win_amd64.whl), and [CNTK](https://azurewebappcntk.blob.core.windows.net/wheels/cntk-2.0.beta11.0-cp35-cp35m-win_amd64.whl) wheels are automatically installed by the script; to change this you can edit the deploy.cmd file**
 
-3. Go to http://www.lfd.uci.edu/~gohlke/pythonlibs/ and download the following python-wheels (assuming latest Python is v3.5 x64, adjust accordingly):
-	```
-	numpy-1.12.0+mkl-cp35-cp35m-win_amd64.whl
-	Pillow-4.0.0-cp35-cp35m-win_amd64.whl
-	scipy-0.19.0rc2-cp35-cp35m-win_amd64.whl
-	```
-
-	Put these into the "Wheels" folder, if you require additional wheels don't forget to also add them to "requirements.txt" at the root of the directory
-
-4. At the end of this step you should have:
+3. At the end of this step you should have:
 	```
 	<YourWebAppFolderName>
 	- logs
@@ -34,9 +29,7 @@
 	-- synset-1k.txt
 	- Wheels
 	-- init.txt
-	-- numpy-1.12.0+mkl-cp35-cp35m-win_amd64.whl
 	-- Pillow-4.0.0-cp35-cp35m-win_amd64.whl
-	-- scipy-0.19.0rc2-cp35-cp35m-win_amd64.whl	
 	- WebApp
 	-- __init__.py
 	-- model.py
@@ -67,20 +60,20 @@
 
 2. Navigate to your web-app on Azure Portal and click on the "Scale up (App Service plan)" blade and select "S1" (or more powerful if needed, however S1 is the minimum for this guide)
 
-3. Scroll down to the "Extensions" blade, click on "Add" and locate the latest version of Python, which for me is "Python 3.5.3 x64" and add it.
+3. Scroll down to the "Extensions" blade, click on "Add", locate "Python 3.5.3 x64" and add it
 
-4. (Optional) Under the "Application settings" blade set "Always On" to "On"
+4. (Optional) Under the "Application settings" blade set "Always On" to "On" to reduce the response time
 
 ## C - Deploy Demo
 
 1. (Optional) Assuming you have used Python 3.5 (x64) and CNTK v2.0 Beta 11 you don't have to change anything in the deployment script. However if you are using Python 3.6 or CNTK v2.0 Beta 12+ then alter the below in the "deploy.cmd" script:
 	```
-	:: Adjust these
-	SET PYTHON_RUNTIME=python-3.5
-	SET PYTHON_VER=3.5
-	SET CNTK_WHEEL=cntk-2.0.beta11.0-cp35-cp35m-win_amd64.whl
-	SET PYTHON_EXE=%SYSTEMDRIVE%\home\Python35\python.exe
-	:: Adjust these
+	SET PYTHON_EXE=%SYSTEMDRIVE%\home\python353x64\python.exe
+	SET NUMPY_WHEEL=https://azurewebappcntk.blob.core.windows.net/wheels/numpy-1.12.1+mkl-cp35-cp35m-win_amd64.whl
+	SET SCIPY_WHEEL=https://azurewebappcntk.blob.core.windows.net/wheels/scipy-0.19.0-cp35-cp35m-win_amd64.whl
+	SET CNTK_WHEEL=https://azurewebappcntk.blob.core.windows.net/wheels/cntk-2.0.beta11.0-cp35-cp35m-win_amd64.whl
+	SET CNTK_BIN=https://azurewebappcntk.blob.core.windows.net/cntk2beta11win/cntk.zip
+	echo "Installed python extension installed here:"
 	``` 
 
 2. Deploy this demo by running:
