@@ -17,7 +17,7 @@
 	mkdir <YourWebAppFolderName>
 	```
 
-2. (Optional) The Python 3.5 (64bit) wheel for [Pillow]](https://azurewebappcntk.blob.core.windows.net/wheels/Pillow-4.0.0-cp35-cp35m-win_amd64.whl) is already located in the "Wheels" folder. If you require additional wheels, you can go to http://www.lfd.uci.edu/~gohlke/pythonlibs/ to download the wheel (t othe wheels folder) and then add it to "requirements.txt" file at the root of the directory. **Note: [Numpy](https://azurewebappcntk.blob.core.windows.net/wheels/numpy-1.12.1+mkl-cp35-cp35m-win_amd64.whl), [Scipy](https://azurewebappcntk.blob.core.windows.net/wheels/scipy-0.19.0-cp35-cp35m-win_amd64.whl), and [CNTK](https://azurewebappcntk.blob.core.windows.net/wheels/cntk-2.0.beta11.0-cp35-cp35m-win_amd64.whl) wheels are automatically installed by the script; to change this you can edit the deploy.cmd file**
+2. (Optional) The Python 3.5 (64bit) wheel for [Pillow](https://azurewebappcntk.blob.core.windows.net/wheels/Pillow-4.0.0-cp35-cp35m-win_amd64.whl) is already located in the "Wheels" folder. If you require additional wheels, you can go to http://www.lfd.uci.edu/~gohlke/pythonlibs/ to download the wheel (t othe wheels folder) and then add it to "requirements.txt" file at the root of the directory. **Note: [Numpy](https://azurewebappcntk.blob.core.windows.net/wheels/numpy-1.12.1+mkl-cp35-cp35m-win_amd64.whl), [Scipy](https://azurewebappcntk.blob.core.windows.net/wheels/scipy-0.19.0-cp35-cp35m-win_amd64.whl), and [CNTK](https://azurewebappcntk.blob.core.windows.net/wheels/cntk-2.0.beta11.0-cp35-cp35m-win_amd64.whl) wheels are automatically installed by the script; to change this you can edit the deploy.cmd file**
 
 3. At the end of this step you should have:
 	```
