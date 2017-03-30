@@ -6,7 +6,7 @@
 
 ![Demo](readme_example.JPG)
 
-**For this guide to work without modifications you must install the "Python 3.5.3 x64" extension** For modifications please see the section below.
+**For this guide to work without modifications you must install the "Python 3.5.3 x64" extension.** For modifications (to create your own from the demo) please go to section: **Advanced extensions (run your own)**
 
 ![Demo](requirement.JPG)
 
