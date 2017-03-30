@@ -1,5 +1,5 @@
 import os
-from WebApp import *
+from model import *
 
 if __name__ == '__main__':
     HOST = os.environ.get('SERVER_HOST', 'localhost')

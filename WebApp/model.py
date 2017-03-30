@@ -8,7 +8,6 @@ from cntk import load_model, combine
 from flask import Flask, render_template, request, json
 from io import BytesIO
 from PIL import Image, ImageOps
-from WebApp import app
 
 app = Flask(__name__)
 
