@@ -2,7 +2,7 @@
 
 ## Result:
 
-[Demo](http://cntkwebappik.azurewebsites.net)
+[Demo](http://wincntkdemo.azurewebsites.net/)
 
 ![Demo](result.JPG)
 
