@@ -1,5 +1,7 @@
 # Installing CNTK w/ Demo Model on Azure Web Apps
 
+The below tutorial will show how to create a Windows-Web-App with CNTK v2.0RC1 installed. We will deploy a ResNet-18 model and then use it classify images via 1) HTML interface and 2) Python.
+
 ## Result:
 
 [Demo](http://wincntkdemo.azurewebsites.net/)
