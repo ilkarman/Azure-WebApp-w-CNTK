@@ -1,6 +1,6 @@
-# Installing CNTK w/ Demo Model on Azure Web Apps
+# Deploy CNTK to Azure Web Apps
 
-The below tutorial will show how to create a Windows-Web-App with CNTK v2.0RC1 installed. We will deploy a ResNet-18 model and then use it classify images via 1) HTML interface and 2) Python.
+Azure offers several ways of deploying a deep-learning model (e.g. CNTK): Windows Web App, Linux (Docker) Web App, and Azure Container Services (Docker). Both of the Docker methods are more convenient, however they are not publicly available at the time of writing. Hence, in this post we will deploy a ResNet-18 model to Azure Web Apps and then submit some test pictures to it using a sample HTML interface and also a python-one.
 
 ## Result:
 
@@ -8,19 +8,17 @@ The below tutorial will show how to create a Windows-Web-App with CNTK v2.0RC1 i
 
 **HTML** 
 
-![Demo](result.JPG)
+![Demo](readme_support/result.JPG)
 
 **Python**
 
-![Demo](python_result.JPG)
+![Demo](readme_support/python_result.JPG)
 
-**For this guide to work without modifications you must install the "Python 3.5.3 x64" extension.** For modifications (to create your own from the demo) please go to section: **Advanced modifications (run your own)**
-
-![Demo](requirement.JPG)
+The above screenshot is taken from [this](https://github.com/ilkarman/Azure-WebApp-w-CNTK/blob/master/readme_support/REST.ipynb) notebook. If you wish to run some speed-tests then [this](https://github.com/ilkarman/Azure-WebApp-w-CNTK/blob/master/readme_support/REST_Speed_Test.ipynb) shows how to submit asyncrochonous requests to the created API to get indication of how long it would take to classify x-amount of images.
 
 ## Replicate Demo
 
-1. Download the contents of this repo and open a Command Prompt in the folder
+1. Download the contents of [this](https://github.com/ilkarman/Azure-WebApp-w-CNTK) repo and open a Command Prompt in the folder
 
 2. Run the following commands to check you have git and azure-cli installed:
 	```
@@ -62,11 +60,15 @@ The below tutorial will show how to create a Windows-Web-App with CNTK v2.0RC1 i
 
 5. We will now install Python. Navigate to your web-app on Azure Portal, scroll down to the "Extensions" blade and select it:
 
-	![Demo](extensions_1.JPG)
+	![Demo]readme_support/extensions_1.JPG)
 
-	Then, click on "Add", locate "Python 3.5.3 x64" and add it (*you must use this extension*). Make sure you get a notification that this installed successfully:
+	Then, click on "Add", locate "Python 3.5.3 x64" and add it (*you must use this extension*)
 
-	![Demo](extensions_2.JPG)
+	![Demo](readme_support/requirement.JPG)
+
+	Make sure you get a notification that this installed successfully:
+
+	![Demo](readme_support/extensions_2.JPG)
 
 6. (Optional) Under the "Application settings" blade set "Always On" to "On" to reduce the response time (since your model will be kept loaded)
 
