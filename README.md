@@ -6,9 +6,11 @@ The below tutorial will show how to create a Windows-Web-App with CNTK v2.0RC1 i
 
 [Website Demo](http://wincntkdemo.azurewebsites.net/)
 
-1. HTML: ![Demo](result.JPG)
+**HTML** 
+![Demo](result.JPG)
 
-2. Python: ![Demo](python_result.JPG)
+**Python**
+![Demo](python_result.JPG)
 
 **For this guide to work without modifications you must install the "Python 3.5.3 x64" extension.** For modifications (to create your own from the demo) please go to section: **Advanced modifications (run your own)**
 
