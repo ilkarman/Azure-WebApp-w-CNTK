@@ -1,6 +1,6 @@
 # Deploy CNTK to Azure Web Apps
 
-Azure offers several ways of deploying a deep-learning model (e.g. CNTK): Windows Web App, Linux (Docker) Web App, and Azure Container Services (Docker). Both of the Docker methods are more convenient, however they are not publicly available at the time of writing. Hence, in this post we will deploy a ResNet-18 model to Azure Web Apps and then submit some test pictures to it using a sample HTML interface and also a python-one.
+Azure offers several ways of deploying a deep-learning model (e.g. CNTK): Windows Web App, Linux (Docker) Web App, and Azure Container Services (Docker). Both of the Docker methods are perhaps more convenient, however they are not publicly available at the time of writing. Hence, in this post we will deploy a ResNet-18 model to Azure Web Apps and then submit some test pictures to it using a sample HTML interface and also via python.
 
 ## Result:
 
@@ -14,7 +14,7 @@ Azure offers several ways of deploying a deep-learning model (e.g. CNTK): Window
 
 ![Demo](readme_support/python_result.JPG)
 
-The above screenshot is taken from [this](https://github.com/ilkarman/Azure-WebApp-w-CNTK/blob/master/readme_support/REST.ipynb) notebook. If you wish to run some speed-tests then [this](https://github.com/ilkarman/Azure-WebApp-w-CNTK/blob/master/readme_support/REST_Speed_Test.ipynb) shows how to submit asyncrochonous requests to the created API to get indication of how long it would take to classify x-amount of images.
+The above screenshot is taken from [this](https://github.com/ilkarman/Azure-WebApp-w-CNTK/blob/master/readme_support/REST.ipynb) notebook. If you wish to run some speed-tests then [this](https://github.com/ilkarman/Azure-WebApp-w-CNTK/blob/master/readme_support/REST_Speed_Test.ipynb) notebook shows how to submit asyncrochonous requests to the created API to get an idea of how long it takes to classify images in bulk.
 
 ## Replicate Demo
 
@@ -60,7 +60,7 @@ The above screenshot is taken from [this](https://github.com/ilkarman/Azure-WebA
 
 5. We will now install Python. Navigate to your web-app on Azure Portal, scroll down to the "Extensions" blade and select it:
 
-	![Demo]readme_support/extensions_1.JPG)
+	![Demo](readme_support/extensions_1.JPG)
 
 	Then, click on "Add", locate "Python 3.5.3 x64" and add it (*you must use this extension*)
 
