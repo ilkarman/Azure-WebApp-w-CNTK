@@ -1,86 +1,105 @@
 # Installing CNTK w/ Demo Model on Azure Web Apps
 
-[Check out step-by-step YouTube](https://youtu.be/nMZ8lTo-96k)
+## Result:
 
 [Demo](http://cntkwebappik.azurewebsites.net)
 
-![Demo](readme_example.JPG)
+![Demo](result.JPG)
 
-**For this guide to work without modifications you must install the "Python 3.5.3 x64" extension.** For modifications (to create your own from the demo) please go to section: **Advanced extensions (run your own)**
+**For this guide to work without modifications you must install the "Python 3.5.3 x64" extension.** For modifications (to create your own from the demo) please go to section: **Advanced modifications (run your own)**
 
 ![Demo](requirement.JPG)
 
-## Replicate Demo in 7 steps
+## Replicate Demo
 
-1. Create a folder that will contain the data for your web-app and download all of the contents of this repo into it:
+1. Download the contents of this repo and open a Command Prompt in the folder
+
+2. Run the following commands to check you have git and azure-cli installed:
 	```
-	mkdir <YourWebAppFolderName>
+	az --version  # time-of-writing: 2.0.1
+	pip install azure-cli  # otherwise install azure-cli
+	git --version # time of writing: 2.9.2.windows.1
 	```
-	You should have the following structure:
+3. Set your username and password for local git deployment (you only need to do this once) e.g.:
 	```
-	<YourWebAppFolderName>
-	- logs
-	-- __init__.txt
-	- Model
-	-- ResNet_18.model
-	-- synset-1k.txt
-	- Wheels
-	-- Pillow-4.0.0-cp35-cp35m-win_amd64.whl
-	- WebApp
-	-- runserver.py
-	-- model.py
-	-- templates
-	--- index.html
-	- .deployment
-	- deploy.cmd
-	- README.md
-	- requirements.txt
-	- web.config
+	set uname=<username_for_local_git_deployment>
+	set pass=<password_for_local_git_deployment>
+	# Create a user-name and password for git deployment of all your apps
+	az appservice web deployment user set --user-name %uname% --password %pass%
 	```
 
-2. Create a web-app and setup the git-credentials by running the following Azure CLI **(note: this currently uses the old version v1 of Azure CLI and will soon be updated to use azure-cli v2.0)** commands (or by using Azure Portal):
+4. Create your web-app by running the below commands:
 	```
-	cd <YourWebAppFolderName>
-	azure login
-	azure account list
-	azure account set <Subscription ID to become default>
-	azure config mode asm
-	azure site create --git <yourWebAppSiteName>
+	# Name for your web-app
+	set appn=<app_name>
+	# Name for resource-group containing web-app
+	set rgname=<name_for_resource_group_that_contains_app>
+	# Login to azure
+	az login
+	# Create a resource-group
+	az group create --location westeurope --name %rgname%
+	# Create a paid 'S2' plan to support your app
+	# The standard paid plans are: S1, S2, S3
+	az appservice plan create --name %appn% --resource-group %rgname% --sku S2
+	# Create the web-app
+	az appservice web create --name %appn% --resource-group %rgname% --plan %appn%
+	# Configure for local git deployment (SAVE URL)
+	az appservice web source-control config-local-git --name %appn% --resource-group %rgname% --query url --output tsv
+	# Initialise your git repo
+	git init
+	# Add the azure endpoint
+	git remote add azure <PASTE_URL_FROM_ABOVE>
+	# e.g. git remote add azure https://ilia2ukdemo@wincntkdemo.scm.azurewebsites.net/wincntkdemo.git
 	```
 
-	If you don't already have a git user-name configured for Azure then you will need to go to the "Deployment Credentials" blade to setup your credentials on Azure Portal.
+5. We will now install Python. Navigate to your web-app on Azure Portal, scroll down to the "Extensions" blade and select it:
 
-3. Navigate to your web-app on Azure Portal and click on the "Scale up (App Service plan)" blade and select "S1" (or more powerful if needed, however S1 is the minimum for this guide)
+	![Demo](extensions_1.JPG)
 
-4. Scroll down to the "Extensions" blade, click on "Add", locate "Python 3.5.3 x64" and add it (*you must use this extension*)
+	Then, click on "Add", locate "Python 3.5.3 x64" and add it (*you must use this extension*). Make sure you get a notification that this installed successfully:
 
-5. (Optional) Under the "Application settings" blade set "Always On" to "On" to reduce the response time (since your model will be kept loaded)
+	![Demo](extensions_2.JPG)
 
-6. Deploy this demo by running:
+6. (Optional) Under the "Application settings" blade set "Always On" to "On" to reduce the response time (since your model will be kept loaded)
+
+7. Deploy this demo by running:
 	```
-	cd <YourWebAppFolderName>
 	git add -A
 	git commit -m "init"
 	git push azure master
 	```
-7. You should now be able to navigate to your web-app address and upload a photo that will be classified according to the CNN: ResNet-18
 
-## Advanced extensions (run your own)
+	If everything has gone successfully you should see the following line in the script output:
 
-1. You can include references to other modules (e.g. pandas or opencv) in your model.py file, however you must add the module to the "requirements.txt" file so that python installs the module. If the module needs to be built you can you can go to http://www.lfd.uci.edu/~gohlke/pythonlibs/ to download the pre-built wheel file (to the wheels folder). Don't forget to add the wheel path to the  "requirements.txt" file at the root of the directory. **Note: [Numpy](https://azurewebappcntk.blob.core.windows.net/wheels/numpy-1.12.1+mkl-cp35-cp35m-win_amd64.whl), [Scipy](https://azurewebappcntk.blob.core.windows.net/wheels/scipy-0.19.0-cp35-cp35m-win_amd64.whl), and [CNTK](https://azurewebappcntk.blob.core.windows.net/wheels/cntk-2.0.beta11.0-cp35-cp35m-win_amd64.whl) wheels are automatically installed inside the "deploy.cmd" script; to change this you can edit the deploy.cmd file to point to whichever numpy wheel you require**	
-
-2. **Editing deploy.cmd** -  the install script automatically adds the binaries for [CNTK v2.0 Beta11](https://azurewebappcntk.blob.core.windows.net/cntk2beta11win/cntk.zip). However if you want to use **Python 3.6 or CNTK v2.0 Beta 12+** then alter the below in the "deploy.cmd" script:
 	```
+	remote: Successfully installed cntk-2.0rc1
+	remote: ..
+	remote: 2.0rc1
+	```
+
+You should now be able to navigate to your web-app address and upload a photo that will be classified according to the CNN: ResNet-18
+
+## Advanced modifications (run your own)
+
+1. You can include references to other modules (e.g. pandas or opencv) in your model.py file, however you must add the module to the "requirements.txt" file so that python installs the module. If the module needs to be built you can you can go to http://www.lfd.uci.edu/~gohlke/pythonlibs/ to download the pre-built wheel file (to the wheels folder). Don't forget to add the wheel path to the "requirements.txt" file at the root of the directory. **Note: [Numpy](https://azurewebappcntk.blob.core.windows.net/wheels/numpy-1.12.1+mkl-cp35-cp35m-win_amd64.whl), [Scipy](https://azurewebappcntk.blob.core.windows.net/wheels/scipy-0.19.0-cp35-cp35m-win_amd64.whl), and [CNTK](https://azurewebappcntk.blob.core.windows.net/cntkrc/cntk-2.0rc1-cp35-cp35m-win_amd64.whl) wheels are automatically installed inside the "deploy.cmd" script; to change this you can edit the deploy.cmd file to point to whichever numpy wheel you require**	
+
+2. **Editing deploy.cmd** -  the install script automatically adds the binaries for [CNTK v2.0 rc1](https://azurewebappcntk.blob.core.windows.net/cntkrc/cntk.zip). However if you want to use **Python 3.6 or CNTK v2.0 rc1+** then alter the below in the "deploy.cmd" script:
+	```
+	:: VARIABLES
+	echo "ATTENTION"
+	echo "USER MUST CHECK/SET THESE VARIABLES:"
 	SET PYTHON_EXE=%SYSTEMDRIVE%\home\python353x64\python.exe
 	SET NUMPY_WHEEL=https://azurewebappcntk.blob.core.windows.net/wheels/numpy-1.12.1+mkl-cp35-cp35m-win_amd64.whl
 	SET SCIPY_WHEEL=https://azurewebappcntk.blob.core.windows.net/wheels/scipy-0.19.0-cp35-cp35m-win_amd64.whl
-	SET CNTK_WHEEL=https://azurewebappcntk.blob.core.windows.net/wheels/cntk-2.0.beta11.0-cp35-cp35m-win_amd64.whl
-	SET CNTK_BIN=https://azurewebappcntk.blob.core.windows.net/cntk2beta11win/cntk.zip
-	echo "Installed python extension installed here:"
+	SET CNTK_WHEEL=https://azurewebappcntk.blob.core.windows.net/cntkrc/cntk-2.0rc1-cp35-cp35m-win_amd64.whl
+	SET CNTK_BIN=https://azurewebappcntk.blob.core.windows.net/cntkrc/cntk.zip
 	``` 
-	To create the 'cntk.zip' file you just need to extract the cntk/cntk folder (i.e. the folder that contains 'CNTK.exe' and DLLs; you can remove the python sub-folder which contains the wheels) and then reference it with the %CTNK_BIN% environmental variable above (assuming you have also extracted the relevant wheel from the cntk/cntk/python first).
+	To create the 'cntk.zip' file you just need to extract the cntk/cntk folder (i.e. the folder that contains 'CNTK.exe' and DLLs; you can remove the python sub-folder which contains the wheels, if it exists) and then reference it with the %CTNK_BIN% environmental variable above.
 
-3. Finally, alter the "model.py" script as desired in the folder "WebApp", along with the HTMl template, "index.html" in "templates" and then push your changes to the repo:
+3. You can also install a different python extension if you wish, however make sure to reference it properly (and also to get the Numpy, Scipy and CNTK Wheels for it). For example, the "Python 3.5.3 x64" extension is installed in the directory "D:\home\python353x64\", and thus the script references:
+	```SET PYTHON_EXE=%SYSTEMDRIVE%\home\python353x64\python.exe```
+
+4. Finally, alter the "model.py" script as desired in the folder "WebApp", along with the HTMl template, "index.html" in "templates" and then push your changes to the repo:
 	```
 	git add -A
 	git commit -m "modified some script"
